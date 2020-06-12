@@ -1,14 +1,17 @@
 import { useState, Fragment, useEffect } from "react";
-import { signin, authenticate, isAuth } from "../actions/auth";
+import { signup, isAuth } from "../../actions/auth";
 import Router from "next/router";
 
-const SigninComponent = () => {
+const SignupComponent = () => {
   const [values, setvalues] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
   const [loading, setLoading] = useState(false);
+  const [showForm, setShowForm] = useState(true);
+  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -21,18 +24,23 @@ const SigninComponent = () => {
 
   const showError = error && <div className="alert alert-danger">{error}</div>;
 
+  const showMessage = message && (
+    <div className="alert alert-success">{message}</div>
+  );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
-    const response = await signin(values);
+    const response = await signup(values);
     setLoading(false);
     if (response.error) {
       setError(response.error);
     } else {
-      authenticate(response, () => {
-        Router.push("/");
-      });
+      setvalues({ name: "", password: "", email: "" });
+      setError("");
+      setMessage(response.message);
+      setShowForm(false);
     }
   };
 
@@ -46,8 +54,18 @@ const SigninComponent = () => {
       };
     });
   };
-  const signinForm = (
+  const signupForm = (
     <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <input
+          onChange={handleChange}
+          type="text"
+          name="name"
+          className="form-control"
+          placeholder="Type your name"
+          value={values.name}
+        />
+      </div>
       <div className="form-group">
         <input
           onChange={handleChange}
@@ -70,7 +88,7 @@ const SigninComponent = () => {
       </div>
       <div className="form-group">
         <button className="btn btn-primary" disabled={loading}>
-          Signin
+          Signup
         </button>
       </div>
     </form>
@@ -78,10 +96,11 @@ const SigninComponent = () => {
   return (
     <Fragment>
       {showLoading}
+      {showMessage}
       {showError}
-      {signinForm}
+      {showForm && signupForm}
     </Fragment>
   );
 };
 
-export default SigninComponent;
+export default SignupComponent;

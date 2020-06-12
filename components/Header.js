@@ -24,32 +24,52 @@ const Header = () => {
       </Link>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
-        {!isAuth() && (
-          <Nav className="ml-auto" navbar>
+        <Nav className="ml-auto" navbar>
+          {!isAuth() && (
+            <Fragment>
+              <NavItem>
+                <Link href="/signin">
+                  <NavLink style={{ cursor: "pointer" }}>Signin</NavLink>
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link href="/signup">
+                  <NavLink style={{ cursor: "pointer" }}>Signup</NavLink>
+                </Link>
+              </NavItem>
+            </Fragment>
+          )}
+          {isAuth() && (
+            <Fragment>
+              <NavItem>
+                <NavLink
+                  style={{ cursor: "pointer" }}
+                  onClick={() => signout(() => Router.replace("/signin"))}
+                >
+                  Signout
+                </NavLink>
+              </NavItem>
+            </Fragment>
+          )}
+          {isAuth() && isAuth().role === 0 && (
             <NavItem>
-              <Link href="/signin">
-                <NavLink style={{ cursor: "pointer" }}>Signin</NavLink>
+              <Link href="/user">
+                <NavLink style={{ cursor: "pointer" }}>
+                  {`${isAuth().name}'s Dashboard`}
+                </NavLink>
               </Link>
             </NavItem>
+          )}
+          {isAuth() && isAuth().role === 1 && (
             <NavItem>
-              <Link href="/signup">
-                <NavLink style={{ cursor: "pointer" }}>Signup</NavLink>
+              <Link href="/admin">
+                <NavLink style={{ cursor: "pointer" }}>
+                  {`${isAuth().name}'s Dashboard`}
+                </NavLink>
               </Link>
             </NavItem>
-          </Nav>
-        )}
-        {isAuth() && (
-          <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink
-                style={{ cursor: "pointer" }}
-                onClick={() => signout(() => Router.replace("/signin"))}
-              >
-                Signout
-              </NavLink>
-            </NavItem>
-          </Nav>
-        )}
+          )}
+        </Nav>
       </Collapse>
     </Navbar>
   );
