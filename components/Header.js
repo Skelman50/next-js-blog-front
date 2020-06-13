@@ -1,6 +1,7 @@
 import { useState, Fragment } from "react";
 import Link from "next/link";
 import Router from "next/router";
+import Nprogress from "nprogress";
 import {
   Collapse,
   Navbar,
@@ -11,6 +12,10 @@ import {
 } from "reactstrap";
 import { APP_NAME } from "../config";
 import { isAuth, signout } from "../actions/auth";
+
+Router.onRouteChangeStart = (url) => Nprogress.start();
+Router.onRouteChangeComplete = (url) => Nprogress.done();
+Router.onRouteChangeError = (url) => Nprogress.done();
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
