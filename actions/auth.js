@@ -1,7 +1,6 @@
 import fetch from "isomorphic-fetch";
 import cookie from "js-cookie";
 import { API } from "../config";
-import next from "next";
 
 export const signup = async (user) => {
   try {
