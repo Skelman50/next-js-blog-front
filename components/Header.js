@@ -44,18 +44,7 @@ const Header = () => {
               </NavItem>
             </Fragment>
           )}
-          {isAuth() && (
-            <Fragment>
-              <NavItem>
-                <NavLink
-                  style={{ cursor: "pointer" }}
-                  onClick={() => signout(() => Router.replace("/signin"))}
-                >
-                  Signout
-                </NavLink>
-              </NavItem>
-            </Fragment>
-          )}
+
           {isAuth() && isAuth().role === 0 && (
             <NavItem>
               <Link href="/user">
@@ -73,6 +62,18 @@ const Header = () => {
                 </NavLink>
               </Link>
             </NavItem>
+          )}
+          {isAuth() && (
+            <Fragment>
+              <NavItem>
+                <NavLink
+                  style={{ cursor: "pointer" }}
+                  onClick={() => signout(() => Router.replace("/signin"))}
+                >
+                  Signout
+                </NavLink>
+              </NavItem>
+            </Fragment>
           )}
         </Nav>
       </Collapse>
