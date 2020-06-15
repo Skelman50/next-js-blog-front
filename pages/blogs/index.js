@@ -1,12 +1,12 @@
-import Layout from "../components/Layout";
-import { listBlogwithCategoriesAndTags } from "../actions/blog";
-import ShowAllBlogs from "../ui/ShowAllBlogs";
-import AllCategories from "../ui/AllCategories";
-import AllTags from "../ui/AllTags";
+import Layout from "../../components/Layout";
+import { listBlogwithCategoriesAndTags } from "../../actions/blog";
+import ShowAllBlogs from "../../ui/ShowAllBlogs";
+import AllCategories from "../../ui/AllCategories";
+import AllTags from "../../ui/AllTags";
 import { withRouter } from "next/router";
 import { Fragment, useState } from "react";
-import BlogHead from "../ui/BlogHead";
-import LoadMoreButton from "../ui/LoadMoreButton";
+import BlogsHead from "../../ui/BlogsHead";
+import LoadMoreButton from "../../ui/LoadMoreButton";
 
 const Blogs = ({
   blogs,
@@ -35,7 +35,7 @@ const Blogs = ({
   };
   return (
     <Fragment>
-      <BlogHead router={router} />
+      <BlogsHead router={router} />
       <Layout>
         <main>
           <div className="container-fluid">
