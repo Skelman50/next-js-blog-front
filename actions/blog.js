@@ -16,3 +16,21 @@ export const createTBlog = async (blog, token) => {
     console.log(error);
   }
 };
+
+export const listBlogwithCategoriesAndTags = async (skip, limit) => {
+  try {
+    const response = await fetch(
+      `${API}/blog/categories-tags?skip=${skip}&limit=${limit}`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
