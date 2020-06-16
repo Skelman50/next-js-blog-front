@@ -1,4 +1,5 @@
 import fetch from "isomorphic-fetch";
+import queryString from "query-string";
 import { API } from "../config";
 
 export const createTBlog = async (blog, token) => {
@@ -107,6 +108,22 @@ export const updateBlog = async (blog, token, slug) => {
         Authorization: `Bearer ${token}`,
       },
       body: blog,
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const listSearch = async (params) => {
+  try {
+    const query = queryString.stringify(params);
+    const response = await fetch(`${API}/blog/search?${query}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     });
     return await response.json();
   } catch (error) {

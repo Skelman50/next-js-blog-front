@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import { APP_NAME } from "../config";
 import { isAuth, signout } from "../actions/auth";
+import Search from "./blog/Search";
 
 Router.onRouteChangeStart = () => Nprogress.start();
 Router.onRouteChangeComplete = () => Nprogress.done();
@@ -27,66 +28,69 @@ const Header = () => {
   }, []);
 
   return (
-    <Navbar color="light" light expand="md">
-      <Link href="/">
-        <NavLink className="font-weight-bold">{APP_NAME}</NavLink>
-      </Link>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="ml-auto" navbar>
-          <NavItem>
-            <Link href="/blogs">
-              <NavLink style={{ cursor: "pointer" }}>Blogs</NavLink>
-            </Link>
-          </NavItem>
-          {!isAuthenticated && (
-            <Fragment>
-              <NavItem>
-                <Link href="/signin">
-                  <NavLink style={{ cursor: "pointer" }}>Signin</NavLink>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link href="/signup">
-                  <NavLink style={{ cursor: "pointer" }}>Signup</NavLink>
-                </Link>
-              </NavItem>
-            </Fragment>
-          )}
+    <Fragment>
+      <Navbar color="light" light expand="md">
+        <Link href="/">
+          <NavLink className="font-weight-bold">{APP_NAME}</NavLink>
+        </Link>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="ml-auto" navbar>
+            <NavItem>
+              <Link href="/blogs">
+                <NavLink style={{ cursor: "pointer" }}>Blogs</NavLink>
+              </Link>
+            </NavItem>
+            {!isAuthenticated && (
+              <Fragment>
+                <NavItem>
+                  <Link href="/signin">
+                    <NavLink style={{ cursor: "pointer" }}>Signin</NavLink>
+                  </Link>
+                </NavItem>
+                <NavItem>
+                  <Link href="/signup">
+                    <NavLink style={{ cursor: "pointer" }}>Signup</NavLink>
+                  </Link>
+                </NavItem>
+              </Fragment>
+            )}
 
-          {isAuthenticated && isAuthenticated.role === 0 && (
-            <NavItem>
-              <Link href="/user">
-                <NavLink style={{ cursor: "pointer" }}>
-                  {`${isAuthenticated.name}'s Dashboard`}
-                </NavLink>
-              </Link>
-            </NavItem>
-          )}
-          {isAuthenticated && isAuthenticated.role === 1 && (
-            <NavItem>
-              <Link href="/admin">
-                <NavLink style={{ cursor: "pointer" }}>
-                  {`${isAuth().name}'s Dashboard`}
-                </NavLink>
-              </Link>
-            </NavItem>
-          )}
-          {isAuthenticated && (
-            <Fragment>
+            {isAuthenticated && isAuthenticated.role === 0 && (
               <NavItem>
-                <NavLink
-                  style={{ cursor: "pointer" }}
-                  onClick={() => signout(() => Router.replace("/signin"))}
-                >
-                  Signout
-                </NavLink>
+                <Link href="/user">
+                  <NavLink style={{ cursor: "pointer" }}>
+                    {`${isAuthenticated.name}'s Dashboard`}
+                  </NavLink>
+                </Link>
               </NavItem>
-            </Fragment>
-          )}
-        </Nav>
-      </Collapse>
-    </Navbar>
+            )}
+            {isAuthenticated && isAuthenticated.role === 1 && (
+              <NavItem>
+                <Link href="/admin">
+                  <NavLink style={{ cursor: "pointer" }}>
+                    {`${isAuth().name}'s Dashboard`}
+                  </NavLink>
+                </Link>
+              </NavItem>
+            )}
+            {isAuthenticated && (
+              <Fragment>
+                <NavItem>
+                  <NavLink
+                    style={{ cursor: "pointer" }}
+                    onClick={() => signout(() => Router.replace("/signin"))}
+                  >
+                    Signout
+                  </NavLink>
+                </NavItem>
+              </Fragment>
+            )}
+          </Nav>
+        </Collapse>
+      </Navbar>
+      <Search />
+    </Fragment>
   );
 };
 
