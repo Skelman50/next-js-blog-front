@@ -3,7 +3,9 @@ import { APP_NAME, DOMAIN, FB_APP_ID, API } from "../config";
 
 const BlogHead = ({ blog }) => (
   <Head>
-    <title>Programming Blog | {APP_NAME}</title>
+    <title>
+      {blog.name} | {APP_NAME}
+    </title>
     <meta name="description" content={blog.mdesc} />
     <link rel="cannonical" href={`${DOMAIN}/blogs/${blog.slug}`} />
     <meta property="og:title" content={`${blog.title} | ${APP_NAME}`} />

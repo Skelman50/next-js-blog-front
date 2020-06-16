@@ -1,4 +1,4 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import Nprogress from "nprogress";
@@ -13,14 +13,18 @@ import {
 import { APP_NAME } from "../config";
 import { isAuth, signout } from "../actions/auth";
 
-Router.onRouteChangeStart = (url) => Nprogress.start();
-Router.onRouteChangeComplete = (url) => Nprogress.done();
-Router.onRouteChangeError = (url) => Nprogress.done();
+Router.onRouteChangeStart = () => Nprogress.start();
+Router.onRouteChangeComplete = () => Nprogress.done();
+Router.onRouteChangeError = () => Nprogress.done();
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setisAuthenticated] = useState(null);
 
   const toggle = () => setIsOpen((prevOpen) => !prevOpen);
+  useEffect(() => {
+    setisAuthenticated(isAuth());
+  }, []);
 
   return (
     <Navbar color="light" light expand="md">
@@ -35,7 +39,7 @@ const Header = () => {
               <NavLink style={{ cursor: "pointer" }}>Blogs</NavLink>
             </Link>
           </NavItem>
-          {!isAuth() && (
+          {!isAuthenticated && (
             <Fragment>
               <NavItem>
                 <Link href="/signin">
@@ -50,16 +54,16 @@ const Header = () => {
             </Fragment>
           )}
 
-          {isAuth() && isAuth().role === 0 && (
+          {isAuthenticated && isAuthenticated.role === 0 && (
             <NavItem>
               <Link href="/user">
                 <NavLink style={{ cursor: "pointer" }}>
-                  {`${isAuth().name}'s Dashboard`}
+                  {`${isAuthenticated.name}'s Dashboard`}
                 </NavLink>
               </Link>
             </NavItem>
           )}
-          {isAuth() && isAuth().role === 1 && (
+          {isAuthenticated && isAuthenticated.role === 1 && (
             <NavItem>
               <Link href="/admin">
                 <NavLink style={{ cursor: "pointer" }}>
@@ -68,7 +72,7 @@ const Header = () => {
               </Link>
             </NavItem>
           )}
-          {isAuth() && (
+          {isAuthenticated && (
             <Fragment>
               <NavItem>
                 <NavLink
