@@ -1,62 +1,33 @@
-import moment from "moment";
-import renderHTML from "react-render-html";
-
 import Layout from "../../components/Layout";
-import { singleBlog } from "../../actions/blog";
-import { API } from "../../config";
-import BlogCategories from "../../ui/BlogCategories";
-import BlogTags from "../../ui/BlogTags";
-import { Fragment } from "react";
+import { singleBlog, listRelated } from "../../actions/blog";
+import { Fragment, useState, useEffect } from "react";
 import BlogHead from "../../ui/BlogHead";
+import BlogIntro from "../../ui/BlogIntro";
+import BlogContent from "../../ui/BlogContent";
 
 const SingleBlog = ({ blog }) => {
+  const [related, setRelated] = useState([]);
+
+  useEffect(() => {
+    loadRelated();
+  }, []);
+
+  const loadRelated = async () => {
+    const response = await listRelated(blog);
+    if (response.error) {
+      console.log(error);
+    } else {
+      setRelated(response);
+    }
+  };
   return (
     <Fragment>
       <BlogHead blog={blog} />
       <Layout>
         <main>
           <article>
-            <div className="container-fluid">
-              <section>
-                <div className="row">
-                  <img
-                    srcSet={`${API}/blog/photo/${blog.slug}`}
-                    alt={blog.title}
-                    className="img img-fluid featured-image"
-                  />
-                </div>
-              </section>
-              <section>
-                <div className="container">
-                  <h2 className="display-2 pb-3 pt-3 text-center font-weight-bold">
-                    {blog.title}
-                  </h2>
-                  <p className="lead mt-3 mark">
-                    Written by {blog.postedBy.name} | Published{" "}
-                    {moment(blog.updatedAt).fromNow()}
-                  </p>
-                  <div className="pb-3">
-                    <BlogCategories blog={blog} />
-                    <BlogTags blog={blog} />
-                    <br />
-                    <br />
-                  </div>
-                </div>
-              </section>
-            </div>
-            <div className="container">
-              <section>
-                <div className="col-md-12 lead">{renderHTML(blog.body)}</div>
-              </section>
-            </div>
-            <div className="container pb-5">
-              <h4 className="text-center pt-5 pb-5 h2">Related Blogs</h4>
-              <hr />
-              <p>Show related blogs</p>
-            </div>
-            <div className="container pb-5">
-              <p>Show comments</p>
-            </div>
+            <BlogIntro blog={blog} />
+            <BlogContent blog={blog} related={related} />
           </article>
         </main>
       </Layout>

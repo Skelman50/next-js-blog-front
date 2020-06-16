@@ -17,6 +17,23 @@ export const createTBlog = async (blog, token) => {
   }
 };
 
+export const listRelated = async (blog) => {
+  const { _id, categories } = blog;
+  try {
+    const response = await fetch(`${API}/blog/related`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ blog: { _id, categories }, limit: 5 }),
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const listBlogwithCategoriesAndTags = async (skip, limit) => {
   try {
     const response = await fetch(
