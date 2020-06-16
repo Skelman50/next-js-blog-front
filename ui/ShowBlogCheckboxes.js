@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 
-const ShowBlogCheckboxes = ({ list, handleChange }) => {
+const ShowBlogCheckboxes = ({ list, handleChange, checkedList = [] }) => {
   return (
     <Fragment>
       {list &&
@@ -10,6 +10,7 @@ const ShowBlogCheckboxes = ({ list, handleChange }) => {
               type="checkbox"
               className="mr-2"
               onChange={() => handleChange(item._id)}
+              checked={checkedList.includes(item._id)}
             />
             <label className="form-check-label">{item.name}</label>
           </li>

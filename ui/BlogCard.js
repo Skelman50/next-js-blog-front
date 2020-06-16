@@ -35,7 +35,11 @@ const BlogCard = ({ blog }) => {
             <section>
               <img
                 src="img img-fluid"
-                style={{ maxHeight: "200px" }}
+                style={{
+                  maxHeight: "300px",
+                  objectFit: "contain",
+                  width: "100%",
+                }}
                 srcSet={`${API}/blog/photo/${blog.slug}`}
                 alt={blog.slug}
               />

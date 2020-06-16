@@ -66,3 +66,50 @@ export const singleBlog = async (slug) => {
     console.log(error);
   }
 };
+
+export const list = async () => {
+  try {
+    const response = await fetch(`${API}/blog`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const removeBlog = async (slug, token) => {
+  try {
+    const response = await fetch(`${API}/blog/${slug}`, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateBlog = async (blog, token, slug) => {
+  try {
+    const response = await fetch(`${API}/blog/${slug}`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: blog,
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

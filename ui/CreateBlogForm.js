@@ -7,8 +7,9 @@ const CreateBlogForm = ({
   handleChange,
   handleSubmit,
   values,
-  loading,
+  loading = false,
   body,
+  update = false,
 }) => (
   <form onSubmit={handleSubmit}>
     <div className="form-group">
@@ -32,7 +33,7 @@ const CreateBlogForm = ({
     </div>
     <div className="form-group">
       <button type="submit" className="btn btn-primary" disabled={loading}>
-        Create
+        {update ? "Update" : "Create"}
       </button>
     </div>
   </form>
