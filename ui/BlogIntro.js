@@ -2,6 +2,7 @@ import { API } from "../config";
 import BlogCategories from "./BlogCategories";
 import BlogTags from "./BlogTags";
 import moment from "moment";
+import Link from "next/link";
 
 const BlogIntro = ({ blog }) => (
   <div className="container-fluid">
@@ -20,8 +21,11 @@ const BlogIntro = ({ blog }) => (
           {blog.title}
         </h2>
         <p className="lead mt-3 mark">
-          Written by {blog.postedBy.name} | Published{" "}
-          {moment(blog.updatedAt).fromNow()}
+          Written by{" "}
+          <Link href={`/profile/${blog.postedBy.username}`}>
+            <a>{blog.postedBy.name} </a>
+          </Link>
+          | Published {moment(blog.updatedAt).fromNow()}
         </p>
         <div className="pb-3">
           <BlogCategories blog={blog} />
