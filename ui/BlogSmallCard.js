@@ -12,9 +12,8 @@ const BlogSmallCard = ({ blog }) => (
             <img
               src="img img-fluid"
               style={{
-                maxHeight: "200px",
+                height: "250px",
                 width: "100%",
-                objectFit: "contain",
               }}
               srcSet={`${API}/blog/photo/${blog.slug}`}
               alt={blog.slug}

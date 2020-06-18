@@ -4,7 +4,7 @@ import { list, removeBlog } from "../../actions/blog";
 import moment from "moment";
 import Link from "next/link";
 
-const BlogRead = () => {
+const BlogRead = ({ username }) => {
   const [blogs, setBlogs] = useState([]);
   const [message, setNessage] = useState("");
   const token = getCookie("token");
@@ -14,7 +14,7 @@ const BlogRead = () => {
   }, []);
 
   const loadBlogs = async () => {
-    const response = await list();
+    const response = await list(username);
     if (response.error) {
       console.log(response.error);
     } else {

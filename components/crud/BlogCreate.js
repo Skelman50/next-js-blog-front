@@ -91,6 +91,7 @@ const CreateBlog = ({ router }) => {
   const handleCategoryToggle = (id) => {
     setError("");
     const result = blogToggle(id, checkedCategory);
+    console.log(result);
     formData.set("categories", result);
     setCheckedCategory(result);
   };
@@ -114,11 +115,19 @@ const CreateBlog = ({ router }) => {
   );
 
   const showCategories = (
-    <ShowBlogCheckboxes list={categoties} handleChange={handleCategoryToggle} />
+    <ShowBlogCheckboxes
+      list={categoties}
+      checkedList={checkedCategory}
+      handleChange={handleCategoryToggle}
+    />
   );
 
   const showTags = (
-    <ShowBlogCheckboxes list={tags} handleChange={handleTagToggle} />
+    <ShowBlogCheckboxes
+      list={tags}
+      checkedList={checkedTag}
+      handleChange={handleTagToggle}
+    />
   );
 
   const showError = error && <div className="alert alert-danger">{error}</div>;

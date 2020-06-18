@@ -1,10 +1,15 @@
 import fetch from "isomorphic-fetch";
 import queryString from "query-string";
 import { API } from "../config";
+import {
+  createBlogUrl,
+  listBlogUrl,
+  deleteUpdateBlogUrl,
+} from "../helpers/actionsBlogs";
 
 export const createTBlog = async (blog, token) => {
   try {
-    const response = await fetch(`${API}/blog`, {
+    const response = await fetch(createBlogUrl(), {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -68,9 +73,9 @@ export const singleBlog = async (slug) => {
   }
 };
 
-export const list = async () => {
+export const list = async (username) => {
   try {
-    const response = await fetch(`${API}/blog`, {
+    const response = await fetch(listBlogUrl(username), {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -85,7 +90,7 @@ export const list = async () => {
 
 export const removeBlog = async (slug, token) => {
   try {
-    const response = await fetch(`${API}/blog/${slug}`, {
+    const response = await fetch(deleteUpdateBlogUrl(slug), {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -101,7 +106,7 @@ export const removeBlog = async (slug, token) => {
 
 export const updateBlog = async (blog, token, slug) => {
   try {
-    const response = await fetch(`${API}/blog/${slug}`, {
+    const response = await fetch(deleteUpdateBlogUrl(slug), {
       method: "PUT",
       headers: {
         Accept: "application/json",

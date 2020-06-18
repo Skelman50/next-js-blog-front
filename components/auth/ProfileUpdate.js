@@ -5,7 +5,6 @@ import ProfileUpdateForm from "../../ui/ProfileUpdateForm";
 import { API } from "../../config";
 import ShowError from "../../ui/ShowError";
 import ShowSuccess from "../../ui/ShowSuccess";
-import Router from "next/router";
 
 const ProfileUpdate = () => {
   const [values, setValues] = useState({
