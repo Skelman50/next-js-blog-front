@@ -41,6 +41,7 @@ const Category = () => {
     e.preventDefault();
     setLoading(true);
     const data = await createCategory({ name: category }, token);
+    console.log(data);
     setLoading(false);
     if (data.error) {
       setError(data.error);

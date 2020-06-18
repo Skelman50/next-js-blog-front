@@ -1,6 +1,7 @@
 import fetch from "isomorphic-fetch";
 import cookie from "js-cookie";
 import { API } from "../config";
+import Router from "next/router";
 
 export const signup = async (user) => {
   try {
@@ -102,5 +103,19 @@ export const updateUserInLocalStorage = (user, next) => {
       localStorage.setItem("user", JSON.stringify(user));
       next();
     }
+  }
+};
+
+export const handleResponse = async (response) => {
+  if (response.status === 401) {
+    signout(() => {
+      Router.push({
+        pathname: "/signin",
+        query: "Your session is expired! Please Signin!",
+      });
+    });
+    return { error: "Your session is expired!" };
+  } else {
+    return await response.json();
   }
 };

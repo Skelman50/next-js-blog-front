@@ -41,6 +41,11 @@ const Header = () => {
                 <NavLink style={{ cursor: "pointer" }}>Blogs</NavLink>
               </Link>
             </NavItem>
+            <NavItem>
+              <Link href="/contact">
+                <NavLink style={{ cursor: "pointer" }}>Contact</NavLink>
+              </Link>
+            </NavItem>
             {!isAuthenticated && (
               <Fragment>
                 <NavItem>

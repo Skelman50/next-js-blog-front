@@ -1,3 +1,5 @@
+const { default: ContactForm } = require("../components/form/ContactForm");
+
 const UserContactForm = ({ user }) => (
   <div className="col-md-6">
     <div className="card">
@@ -6,7 +8,7 @@ const UserContactForm = ({ user }) => (
           Message {user.name}
         </h5>
         <br />
-        <p> contact form</p>
+        <ContactForm authorEmail={user.email} />
       </div>
     </div>
   </div>

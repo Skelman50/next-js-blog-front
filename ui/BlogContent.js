@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import renderHTML from "react-render-html";
 import RelatedBlogs from "./RelatedBlogs";
+import DisqusThread from "../components/DisqusThread";
 
 const BlogContent = ({ blog, related }) => (
   <Fragment>
@@ -17,7 +18,13 @@ const BlogContent = ({ blog, related }) => (
       </div>
     </div>
     <div className="container pb-5">
-      <p>Show comments</p>
+      <div className="pt-5">
+        <DisqusThread
+          id={blog._id}
+          title={blog.title}
+          path={`/blog/${blog.slug}`}
+        />
+      </div>
     </div>
   </Fragment>
 );

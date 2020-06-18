@@ -1,5 +1,6 @@
 import fetch from "isomorphic-fetch";
 import { API } from "../config";
+import { handleResponse } from "./auth";
 
 export const createTag = async (tag, token) => {
   try {
@@ -12,7 +13,7 @@ export const createTag = async (tag, token) => {
       },
       body: JSON.stringify(tag),
     });
-    return await response.json();
+    return await handleResponse(response);
   } catch (error) {
     console.log(error);
   }
@@ -50,7 +51,7 @@ export const removetag = async (slug, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return await response.json();
+    return await handleResponse(response);
   } catch (error) {
     console.log(error);
   }

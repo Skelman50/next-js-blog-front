@@ -1,5 +1,6 @@
 import fetch from "isomorphic-fetch";
 import { API } from "../config";
+import { handleResponse } from "./auth";
 
 export const getPublicProfile = async (username) => {
   try {
@@ -42,7 +43,7 @@ export const update = async (token, user) => {
       },
       body: user,
     });
-    return await response.json();
+    return await handleResponse(response);
   } catch (error) {
     console.log(error);
   }

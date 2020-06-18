@@ -6,6 +6,7 @@ import {
   listBlogUrl,
   deleteUpdateBlogUrl,
 } from "../helpers/actionsBlogs";
+import { handleResponse } from "./auth";
 
 export const createTBlog = async (blog, token) => {
   try {
@@ -17,7 +18,7 @@ export const createTBlog = async (blog, token) => {
       },
       body: blog,
     });
-    return await response.json();
+    return await handleResponse(response);
   } catch (error) {
     console.log(error);
   }
@@ -98,7 +99,7 @@ export const removeBlog = async (slug, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return await response.json();
+    return await handleResponse(response);
   } catch (error) {
     console.log(error);
   }
@@ -114,7 +115,7 @@ export const updateBlog = async (blog, token, slug) => {
       },
       body: blog,
     });
-    return await response.json();
+    return handleResponse(response);
   } catch (error) {
     console.log(error);
   }
