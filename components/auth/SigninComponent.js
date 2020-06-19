@@ -1,7 +1,13 @@
 import { useState, Fragment, useEffect } from "react";
-import { signin, authenticate, isAuth } from "../../actions/auth";
+import {
+  signin,
+  authenticate,
+  isAuth,
+  loginWithGoogle,
+} from "../../actions/auth";
 import Router from "next/router";
 import Link from "next/link";
+import GoogleLogin from "./GoogleLogin";
 
 const SigninComponent = () => {
   const [values, setvalues] = useState({
@@ -51,6 +57,23 @@ const SigninComponent = () => {
       };
     });
   };
+
+  const responseGoogle = async (response) => {
+    const idToken = response.tokenId;
+    const data = await loginWithGoogle({ idToken });
+    if (data.error) {
+      setError(data.error);
+    } else {
+      authenticate(data, () => {
+        if (isAuth() && isAuth().role === 1) {
+          Router.push("/admin");
+        } else {
+          Router.push("/user");
+        }
+      });
+    }
+  };
+
   const signinForm = (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -84,6 +107,7 @@ const SigninComponent = () => {
     <Fragment>
       {showLoading}
       {showError}
+      <GoogleLogin responseGoogle={responseGoogle} />
       {signinForm}
       <Link href="/auth/password/forgot">
         <a className="btn btn-outline-danger btn-sm">Forgot your password?</a>

@@ -52,6 +52,22 @@ export const signin = async (user) => {
   }
 };
 
+export const loginWithGoogle = async (user) => {
+  try {
+    const response = await fetch(`${API}/auth/google-login`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const setCookie = (key, value) => {
   if (process.browser) {
     cookie.set(key, value, { expires: 1 });
