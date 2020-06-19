@@ -119,3 +119,35 @@ export const handleResponse = async (response) => {
     return await response.json();
   }
 };
+
+export const forgotPassword = async (email) => {
+  try {
+    const response = await fetch(`${API}/auth/forgot-password`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const resetPassword = async (data) => {
+  try {
+    const response = await fetch(`${API}/auth/reset-password`, {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
