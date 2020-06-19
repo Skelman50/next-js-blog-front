@@ -1,5 +1,5 @@
 import { useState, Fragment, useEffect } from "react";
-import { signup, isAuth } from "../../actions/auth";
+import { isAuth, preSignup } from "../../actions/auth";
 import Router from "next/router";
 
 const SignupComponent = () => {
@@ -32,7 +32,7 @@ const SignupComponent = () => {
     e.preventDefault();
     setLoading(true);
     setError(false);
-    const response = await signup(values);
+    const response = await preSignup(values);
     setLoading(false);
     if (response.error) {
       setError(response.error);

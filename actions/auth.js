@@ -3,9 +3,26 @@ import cookie from "js-cookie";
 import { API } from "../config";
 import Router from "next/router";
 
-export const signup = async (user) => {
+export const signup = async (token) => {
   try {
     const response = await fetch(`${API}/auth/signup`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token }),
+    });
+    console.log(response);
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const preSignup = async (user) => {
+  try {
+    const response = await fetch(`${API}/auth/pre-signup`, {
       method: "POST",
       headers: {
         Accept: "application/json",
